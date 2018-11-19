@@ -12,7 +12,8 @@ try:
     USER = sys.argv[2].split(':')[0] # Receptor+IP.
     SERVER = USER.split('@')[-1] # IP.
     PORT = int(sys.argv[2].split(':')[-1]) # Puerto de ejecución.
-except IndexError:
+
+except (IndexError, ValueError):
     sys.exit('Try: NAME@IP:PORT')
 
 # Contenido que vamos a enviar
@@ -25,9 +26,11 @@ with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as my_socket:
 
     print("Enviando: " + LINE)
     my_socket.send(bytes(LINE, 'utf-8') + b'\r\n')
-    data = my_socket.recv(1024)
-
-    print('Recibido -- ', data.decode('utf-8'))
-    print("Terminando socket...")
+    try:
+        data = my_socket.recv(1024)
+        print('Recibido -- ', data.decode('utf-8'))
+        print("Terminando socket...")
+    except ConnectionRefusedError:
+        print('CONNECTION ERROR')
 
 print("Fin.")
