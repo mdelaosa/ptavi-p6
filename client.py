@@ -7,11 +7,13 @@ Programa cliente que abre un socket a un servidor
 import socket
 import sys
 
-# Cliente UDP simple.
-
-METHOD = sys.argv[1] # Método usado.
-USER = sys.argv[2].split(':')[0] # Receptor+IP.
-PORT = sys.argv[2].split(':')[-1] # Puerto de ejecución.
+try:
+    METHOD = sys.argv[1] # Método usado.
+    USER = sys.argv[2].split(':')[0] # Receptor+IP.
+    SERVER = USER.split('@')[-1] # IP.
+    PORT = int(sys.argv[2].split(':')[-1]) # Puerto de ejecución.
+except IndexError:
+    sys.exit('Try: NAME@IP:PORT')
 
 # Contenido que vamos a enviar
 LINE = '¡Hola mundo!'
