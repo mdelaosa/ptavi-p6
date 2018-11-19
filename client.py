@@ -28,8 +28,8 @@ with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as my_socket:
     my_socket.send(bytes(LINE, 'utf-8') + b'\r\n')
     try:
         data = my_socket.recv(1024)
-        print('Recibido -- ', data.decode('utf-8'))
-        print("Terminando socket...")
+        print('RECEIVED -- ', data.decode('utf-8'))
+        print("FINISHING...")
     except ConnectionRefusedError:
         print('CONNECTION ERROR')
 
