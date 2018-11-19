@@ -9,10 +9,9 @@ import sys
 
 # Cliente UDP simple.
 
-# Dirección IP del servidor.
-METHOD = sys.argv[1]
-USER = sys.argv[2].split(':')[0]
-PORT = sys.argv[2].split(':')[-1]
+METHOD = sys.argv[1] # Método usado.
+USER = sys.argv[2].split(':')[0] # Receptor+IP.
+PORT = sys.argv[2].split(':')[-1] # Puerto de ejecución.
 
 # Contenido que vamos a enviar
 LINE = '¡Hola mundo!'
