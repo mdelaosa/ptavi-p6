@@ -19,8 +19,13 @@ class EchoHandler(socketserver.DatagramRequestHandler):
         while 1:
             # Leyendo línea a línea lo que nos envía el cliente
             line = self.rfile.read()
-            print("El cliente nos manda " + line.decode('utf-8'))
-
+            if line.decode('utf-8').split(' ')[0] == 'INVITE':
+                print("El cliente nos manda " + line.decode('utf-8'))
+                self.wfile.write(b"SIP/2.0 100 TRYING...\r\n\r\n" +
+                                 b"SIP/2.0 100 RINGING...\r\n\r\n" +
+                                 b"SIP/2.0 200 OK...\r\n\r\n")
+            if line.decode('utf-8').split(' ')[0] == 'BYE':
+                print('THE CLIENT SENT BYE, FINISHING CONNECTION')
             # Si no hay más líneas salimos del bucle infinito
             if not line:
                 break
