@@ -20,7 +20,7 @@ class SIPHandler(socketserver.DatagramRequestHandler):
         while 1:
             # Leyendo línea a línea lo que nos envía el cliente
             line = self.rfile.read()
-            METHOD = line.decode('utf-8').split(' ')
+            METHOD = line.decode('utf-8').split(" ")[0]
             if METHOD == 'INVITE':
                 print("THE CLIENT SENT: " + line.decode('utf-8'))
                 self.wfile.write(b"SIP/2.0 100 TRYING...\r\n\r\n" +
@@ -33,9 +33,7 @@ class SIPHandler(socketserver.DatagramRequestHandler):
                 self.wfile.write(b"cancion.mp3 enviada \r\n\r\n")
             if METHOD == 'BYE':
                 print('FINISHING CONNECTION WITH THE CLIENT')
-            #if self.error(line.decode('utf-8').split(' ')):
-                #self.wfile.write(b"SIP/2.0 405 Method Not Allowed\r\n\r\n")
-            if METHOD != 'INVITE' or 'ACK' or 'BYE':
+            if METHOD != ('INVITE' or 'ACK' or 'BYE'):
                 self.wfile.write(b"SIP/2.0 405 METHOD NOT ALLOWED\r\n\r\n")
             # Si no hay más líneas salimos del bucle infinito
             if not line:
