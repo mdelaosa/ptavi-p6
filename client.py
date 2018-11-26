@@ -11,7 +11,6 @@ try:
     server = user.split('@')[-1]  # IP.
     port = int(sys.argv[2].split(':')[-1])  # Puerto de ejecución.
 
-
 # Creamos el socket, lo configuramos y lo atamos a un servidor/puerto.
     with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as my_socket:
         my_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
